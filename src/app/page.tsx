@@ -28,7 +28,7 @@ export default async function HomePage() {
           {featured.map((b) => (
             <Link key={b.id} href={"/brand/" + b.slug} className="card hover:bg-neutral-900 transition">
               <div className="h-44 rounded-xl bg-neutral-800 mb-3 flex items-center justify-center text-neutral-500">
-                {b.heroImage ? <span>{b.name}</span> : <span>{b.name}</span>}
+                <span>{b.name}</span>
               </div>
               <div className="space-y-1">
                 <div className="font-medium">{b.name}</div>

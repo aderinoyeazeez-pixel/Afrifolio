@@ -35,29 +35,31 @@ model Brand {
 }
 
 model Product {
-  id          String     @id @default(cuid())
-  brandId     String
-  brand       Brand      @relation(fields: [brandId], references: [id])
-  name        String
-  slug        String     @unique
-  description String?
-  price       Int        // price in minor units e.g. kobo
-  images      String[]
-  sizes       String[]   // e.g. ["S","M","L"]
-  colours     String[]   // e.g. ["Black","Indigo"]
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id           String      @id @default(cuid())
+  brandId      String
+  brand        Brand       @relation(fields: [brandId], references: [id])
+  collectionId String?
+  collection   Collection? @relation(fields: [collectionId], references: [id])
+  name         String
+  slug         String      @unique
+  description  String?
+  price        Int         // price in minor units e.g. kobo
+  images       String[]
+  sizes        String[]    // e.g. ["S","M","L"]
+  colours      String[]    // e.g. ["Black","Indigo"]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 }
 
 model Collection {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   brandId   String
-  brand     Brand    @relation(fields: [brandId], references: [id])
+  brand     Brand     @relation(fields: [brandId], references: [id])
   name      String
-  slug      String   @unique
+  slug      String    @unique
   products  Product[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Review {

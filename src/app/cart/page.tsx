@@ -15,7 +15,7 @@ export default function CartPage() {
   const total = items.reduce((s, x) => s + x.price * x.qty, 0);
 
   function remove(slug: string) {
-    const next = items.filter(x => x.slug !== slug);
+    const next = items.filter(x => x.slug != slug);
     setItems(next);
     localStorage.setItem(key, JSON.stringify(next));
   }

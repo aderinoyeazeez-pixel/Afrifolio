@@ -1,4 +1,3 @@
-
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
@@ -9,15 +8,9 @@ async function run() {
     return;
   }
 
-  // Demo users
-  const alice = await prisma.user.create({
-    data: { email: "alice@example.com", name: "Alice" },
-  });
-  const bob = await prisma.user.create({
-    data: { email: "bob@example.com", name: "Bob" },
-  });
+  const alice = await prisma.user.create({ data: { email: "alice@example.com", name: "Alice" } });
+  const bob = await prisma.user.create({ data: { email: "bob@example.com", name: "Bob" } });
 
-  // Demo brands
   const kente = await prisma.brand.create({
     data: {
       name: "Kente Atelier",
@@ -46,15 +39,14 @@ async function run() {
     },
   });
 
-  // Collections
   const kenteSig = await prisma.collection.create({
     data: { name: "Signature Weaves", slug: "signature-weaves", brandId: kente.id },
   });
 
-  // Products
   await prisma.product.create({
     data: {
       brandId: kente.id,
+      collectionId: kenteSig.id,
       name: "Kente Panel Jacket",
       slug: "kente-panel-jacket",
       description: "Boxy jacket with handwoven kente panels and corozo buttons.",
@@ -68,6 +60,7 @@ async function run() {
   await prisma.product.create({
     data: {
       brandId: kente.id,
+      collectionId: kenteSig.id,
       name: "Heritage Wrap Skirt",
       slug: "heritage-wrap-skirt",
       description: "Adjustable wrap skirt with selvedge detail, fully lined.",
@@ -91,7 +84,6 @@ async function run() {
     },
   });
 
-  // Reviews
   await prisma.review.create({
     data: { brandId: kente.id, userId: alice.id, rating: 5, comment: "Stunning craftsmanship." },
   });
